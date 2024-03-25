@@ -4,7 +4,9 @@ import { ContextInterface } from "../types/type";
 const defaultContextValue: ContextInterface = {
     usersName: [],
     loading: true,
-    error: false
+    error: false,
+    updateSubgroup: () => {},
+    subgroups: []
 }
 
 export const DataContext = createContext<ContextInterface>(defaultContextValue)

@@ -3,7 +3,7 @@ import { ContextInterface } from '../types/type'
 import { DataContext } from './dataContext'
 import { useFachtData } from '../hooks/useFetchDataHook'
 import axios, { AxiosError }  from 'axios';
-import { BASE_URL } from '../../src/constants/BASE_URL'
+import { BASE_URL_LOCAL } from '../../src/constants/BASE_URL'
 
 interface DataContextProps {
     children: ReactNode

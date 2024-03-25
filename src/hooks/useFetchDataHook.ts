@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
-import { BASE_URL } from '../constants/BASE_URL'
+import { BASE_URL_REMOTE } from '../constants/BASE_URL'
 
 export interface UseFetch {
     usersNameAPI: string[],
@@ -20,7 +20,7 @@ export const useFachtData = (): UseFetch => {
         useEffect(() => {
 
                 const getDatas = async () => {
-                    const names = await axios.get(BASE_URL + '/users')
+                    const names = await axios.get(BASE_URL_REMOTE + '/users')
                     setUsersName(names.data)
                     setLoading(false)
                 }

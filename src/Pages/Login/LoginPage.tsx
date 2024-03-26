@@ -1,7 +1,7 @@
-import { Box, Button, FormControl, FormLabel, Input, useToast } from "@chakra-ui/react"
+import { Box, Button, FormControl, Input, useToast } from "@chakra-ui/react"
 import axios, { AxiosError } from "axios"
 import React, { useState } from "react"
-import { BASE_URL_REMOTE } from "../../constants/BASE_URL"
+import { BASE_URL_LOCAL } from "../../constants/BASE_URL"
 
 
 type FormDataLogin = {
@@ -37,8 +37,8 @@ export const Login: React.FC = () => {
                 password
             }
 
-            const login = await axios.post(BASE_URL_REMOTE + '/users/login', body)
-
+            const login = await axios.post(BASE_URL_LOCAL + '/users/login', body)
+            console.log(login)
             localStorage.setItem('token', login.data.token)
             localStorage.setItem('idUser', login.data.idUser)
 
@@ -60,6 +60,16 @@ export const Login: React.FC = () => {
                     {
                         title: "Erro!",
                         description: error.response?.data ? error.response.data : "",
+                        status: "error",
+                        duration: 2500,
+                        isClosable: true
+                    }
+                )
+            }else{
+                toast(
+                    {
+                        title: "Erro!",
+                        description: "Error inesperado!",
                         status: "error",
                         duration: 2500,
                         isClosable: true

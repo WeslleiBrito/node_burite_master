@@ -5,7 +5,9 @@ import { BASE_URL_REMOTE } from '../constants/BASE_URL'
 export interface UseFetch {
     usersNameAPI: string[],
     loading: boolean,
-    error: boolean
+    error: boolean,
+    setLoading: Function,
+    setError: Function
 }
 
 
@@ -40,7 +42,9 @@ export const useFachtData = (): UseFetch => {
     return {
         usersNameAPI,
         loading,
-        error
+        error,
+        setLoading,
+        setError
     }
 
 }

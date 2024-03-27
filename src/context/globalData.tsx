@@ -3,7 +3,7 @@ import { ContextInterface, Subgroup } from '../types/type'
 import { DataContext } from './dataContext'
 import { useFachtData } from '../hooks/useFetchDataHook'
 import axios, { AxiosError }  from 'axios';
-import { BASE_URL_REMOTE } from '../../src/constants/BASE_URL'
+import { BASE_URL_LOCAL, BASE_URL_REMOTE } from '../../src/constants/BASE_URL'
 import { useToast } from "@chakra-ui/react"
 
 interface DataContextProps {
@@ -12,7 +12,7 @@ interface DataContextProps {
 
 export const GlobalDataProvider: React.FC<DataContextProps> = (props) => {
 
-    const {error, loading, usersNameAPI} = useFachtData()
+    const {error, loading, usersNameAPI, setLoading, setError} = useFachtData()
     const [usersName, setUsersName] = useState<string[]>([])
     const [subgroups, setSubgroups] = useState<Subgroup[]>([])
     const toast = useToast()
@@ -22,18 +22,21 @@ export const GlobalDataProvider: React.FC<DataContextProps> = (props) => {
     const updateSubgroup = async () => {
 
         try {
-
-            const result = await axios.get(BASE_URL_REMOTE + '/subgroup', {
+            setLoading(true)
+            const result = await axios.get(BASE_URL_LOCAL + '/subgroup', {
                 headers: {
                     Authorization: localStorage.getItem('token')
                 }
             })
 
             setSubgroups([...result.data])
+            setLoading(false)
+        } catch (error) {     
+           setError(true)
+           setLoading(false)
 
-        } catch (error) {
-           
             if(error instanceof AxiosError){
+                console.log("Erro do axios");
                 
                 toast(
                     {
@@ -44,6 +47,8 @@ export const GlobalDataProvider: React.FC<DataContextProps> = (props) => {
                         isClosable: true
                     }
                 )
+            }else{
+                console.log(error)
             }
         }
     }

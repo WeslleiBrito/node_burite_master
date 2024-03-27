@@ -5,7 +5,7 @@ const defaultContextValue: ContextInterface = {
     usersName: [],
     loading: true,
     error: false,
-    updateSubgroup: () => {},
+    updateSubgroup: async () => {},
     subgroups: []
 }
 

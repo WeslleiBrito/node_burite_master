@@ -1,8 +1,9 @@
 import { Box, Button, FormControl, Input, useToast } from "@chakra-ui/react"
 import axios, { AxiosError } from "axios"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { BASE_URL_LOCAL } from "../../constants/BASE_URL"
-
+import { useNavigate } from "react-router-dom";
+import { goSubgroups } from "../../Routes/coordinator"
 
 type FormDataLogin = {
     email: string,
@@ -15,6 +16,15 @@ export const Login: React.FC = () => {
         email: '',
         password: ''
     })
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(localStorage.getItem('token')){
+            goSubgroups(navigate)
+        }
+    }, [])
+    
 
     // Toast para exibir mensagens de erro/sucesso
     const toast = useToast()
